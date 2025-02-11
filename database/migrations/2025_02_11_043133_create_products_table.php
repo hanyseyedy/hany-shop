@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('description');
+            $table->decimal('price', 10, 2);
+            $table->string('images')->nullable(); // تصاویر به صورت لیستی از نام فایل‌ها ذخیره می‌شود
             $table->timestamps();
         });
+        
     }
 
     /**

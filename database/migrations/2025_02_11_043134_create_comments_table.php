@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->text('content');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->morphs('commentable'); // برای ارتباط با محصولات یا پست‌ها
+            $table->boolean('approved')->default(false);
             $table->timestamps();
         });
+        
     }
 
     /**

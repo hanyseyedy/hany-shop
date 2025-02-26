@@ -6,6 +6,7 @@
     <p>{{ $post->content }}</p>
 
     <hr>
+    
     <h3>نظرات کاربران</h3>
     @foreach($post->comments as $comment)
         <div class="mb-3 p-2 border rounded">
@@ -24,6 +25,6 @@
     @else
     <p>برای ارسال نظر، لطفاً <a href="{{ route('login') }}">وارد شوید</a>.</p>
     @endauth
-    
+
 </div>
 @endsection

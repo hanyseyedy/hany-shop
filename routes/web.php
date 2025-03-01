@@ -26,6 +26,13 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 // مسیرهای کامنت‌ها (فقط ذخیره‌سازی)
 Route::post('comments/{type}/{id}', [CommentController::class, 'store'])->name('comments.store');
 Route::middleware('auth')->post('/comment/{type}/{id}', [CommentController::class, 'store'])->name('comments.store');
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/comments', [AdminCommentController::class, 'index'])->name('admin.comments.index');
+    Route::get('/comments/{comment}/edit', [AdminCommentController::class, 'edit'])->name('admin.comments.edit');
+    Route::put('/comments/{comment}', [AdminCommentController::class, 'update'])->name('admin.comments.update');
+    Route::delete('/comments/{comment}', [AdminCommentController::class, 'destroy'])->name('admin.comments.destroy');
+    Route::post('/comments/{comment}/approve', [AdminCommentController::class, 'approve'])->name('admin.comments.approve');
+});
 
 
 // پنل ادمین (فقط ادمین و سوپر ادمین دسترسی دارند)

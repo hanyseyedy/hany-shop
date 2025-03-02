@@ -2,10 +2,15 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminCommentController;
+
+Auth::routes();
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -70,8 +75,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/admin/posts/{post}', [PostController::class, 'destroy'])->name('admin.posts.destroy');
 });
 
-use App\Http\Controllers\AdminCommentController;
-
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/comments', [AdminCommentController::class, 'index'])->name('admin.comments.index');
     Route::post('/comments/{comment}/approve', [AdminCommentController::class, 'approve'])->name('admin.comments.approve');
@@ -92,3 +95,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 // });
 
 // require __DIR__.'/auth.php';
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

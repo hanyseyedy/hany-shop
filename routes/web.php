@@ -81,6 +81,23 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/comments/{comment}', [AdminCommentController::class, 'destroy'])->name('admin.comments.destroy');
 });
 
-Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    // مدیریت محصولات
+    Route::get('/products', [ProductController::class, 'adminIndex'])->name('admin.products.index');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('admin.products.create');
+    Route::post('/products', [ProductController::class, 'store'])->name('admin.products.store');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
+    Route::put('/products/{product}', [ProductController::class, 'update'])->name('admin.products.update');
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+
+    // مدیریت پست‌ها
+    Route::get('/posts', [PostController::class, 'adminIndex'])->name('admin.posts.index');
+    Route::get('/posts/create', [PostController::class, 'create'])->name('admin.posts.create');
+    Route::post('/posts', [PostController::class, 'store'])->name('admin.posts.store');
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('admin.posts.edit');
+    Route::put('/posts/{post}', [PostController::class, 'update'])->name('admin.posts.update');
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('admin.posts.destroy');
+});
+

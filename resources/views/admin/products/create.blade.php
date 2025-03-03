@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -8,6 +8,10 @@
         <div class="mb-3">
             <label class="form-label">نام محصول</label>
             <input type="text" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="description">توضیحات:</label>
+            <textarea name="description"></textarea>
         </div>
         <div class="mb-3">
             <label class="form-label">قیمت</label>

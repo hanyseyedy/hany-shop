@@ -1,8 +1,15 @@
-<form action="{{ route('admin.posts.store') }}" method="POST">
-    @csrf
-    <label>عنوان پست</label>
-    <input type="text" name="title" required>
-    <label>محتوا</label>
-    <textarea name="content" required></textarea>
-    <button type="submit">ثبت</button>
-</form>
+@extends('layouts.admin')
+
+@section('content')
+    <h2>افزودن پست جدید</h2>
+    <form action="{{ route('admin.posts.store') }}" method="POST">
+        @csrf
+        <label for="title">عنوان:</label>
+        <input type="text" name="title" required>
+
+        <label for="content">محتوا:</label>
+        <textarea name="content" required></textarea>
+
+        <button type="submit">افزودن پست</button>
+    </form>
+@endsection

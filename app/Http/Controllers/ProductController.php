@@ -33,6 +33,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
         ]);

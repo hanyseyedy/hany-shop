@@ -9,18 +9,10 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminCommentController;
 
-Auth::routes();
-
 
 Route::get('/', function () {
     return view('welcome');
 });
-
-// مسیرهای محصولات
-// Route::resource('products', ProductController::class);
-
-// مسیرهای پست‌ها
-// Route::resource('posts', PostController::class);
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
@@ -101,3 +93,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('admin.posts.destroy');
 });
 
+Auth::routes();

@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin'); // اطمینان از اینکه فقط ادمین‌ها دسترسی دارند
+    }
+
+    public function index()
+    {
+        return view('admin.dashboard'); // این صفحه داشبورد ادمین رو نمایش میده
+    }
+
     public function manageUsers()
     {
         $users = User::where('role', '!=', 'super_admin')->paginate(10);
@@ -31,3 +41,4 @@ class AdminController extends Controller
         return back()->with('success', 'کاربر حذف شد.');
     }
 }
+

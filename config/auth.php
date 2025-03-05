@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'admin' => [  // اضافه کردن گارد مخصوص ادمین‌ها
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
     ],
 
     /*
@@ -62,14 +66,14 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admins' => [  // اضافه کردن provider برای ادمین‌ها
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class, // اگه ادمین‌ها در جدول `users` ذخیره شدن، اینو نگه دار
+        ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------

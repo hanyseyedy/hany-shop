@@ -24,8 +24,10 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
 // مسیرهای کامنت‌ها (فقط ذخیره‌سازی)
+Route::post('comment/{type}/{id}', [CommentController::class, 'store'])->name('comment.store');
 Route::post('comments/{type}/{id}', [CommentController::class, 'store'])->name('comments.store');
-Route::middleware('auth')->post('/comment/{type}/{id}', [CommentController::class, 'store'])->name('comments.store');
+
+// Route::middleware('auth')->post('/comment/{type}/{id}', [CommentController::class, 'store'])->name('comments.store');
 
 // مسیرهای مدیریت ادمین
 Route::middleware(['auth:admin', 'admin'])->prefix('admin')->group(function () {

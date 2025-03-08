@@ -27,12 +27,29 @@ class LoginController extends Controller
      */
     protected function redirectTo()
     {
-        if (auth()->check() && auth()->user()->role === 'admin') {
+        if (auth()->user()->role === 'admin') {
             return '/admin';
         }
-        return '/home';
+
+        return '/';
     }
 
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if (auth()->attempt($request->only('email', 'password'))) {
+            if (auth()->user()->role === 'admin') {
+                return redirect('/admin');
+            }
+            return redirect('/');
+        }
+
+        return back()->with('error', 'ایمیل یا رمز عبور اشتباه است');
+    }
 
 
     /**

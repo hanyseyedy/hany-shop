@@ -13,7 +13,7 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * مسیر پیش‌فرض بعد از لاگین.
      */
-    public const HOME = '/admin';
+    public const HOME = '/';
 
     /**
      * بوت کردن سرویس‌ها.

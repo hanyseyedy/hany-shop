@@ -30,7 +30,8 @@ Route::post('comments/{type}/{id}', [CommentController::class, 'store'])->name('
 // Route::middleware('auth')->post('/comment/{type}/{id}', [CommentController::class, 'store'])->name('comments.store');
 
 // مسیرهای مدیریت ادمین
-Route::middleware(['auth:admin', 'admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     
     // مدیریت محصولات
@@ -61,6 +62,3 @@ Route::middleware(['auth:admin', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/comments/{comment}', [AdminCommentController::class, 'destroy'])->name('admin.comments.destroy');
     Route::post('/comments/{comment}/approve', [AdminCommentController::class, 'approve'])->name('admin.comments.approve');
 });
-
-// صفحه اصلی بعد از لاگین
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -19,14 +19,19 @@
             <tr>
                 <td>{{ $post->id }}</td>
                 <td>{{ $post->title }}</td>
-                <td>{{ $post->created_at->format('Y-m-d') }}</td>
+                <td>{{ $post->created_at ? $post->created_at->format('Y-m-d') : '-' }}</td>
                 <td>
-                    <a href="#" class="btn btn-warning btn-sm">ویرایش</a>
-                    <a href="#" class="btn btn-danger btn-sm">حذف</a>
+                    <a href="{{ route('admin.posts.edit', $post->id) }}">ویرایش</a>
+                    <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="return confirm('آیا مطمئن هستید؟')">حذف</button>
+                    </form>
                 </td>
             </tr>
             @endforeach
         </tbody>
+
     </table>
 
     {{ $posts->links() }}

@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h2>افزودن پست جدید</h2>
+    <h2>ایجاد پست جدید</h2>
+
     <form action="{{ route('admin.posts.store') }}" method="POST">
         @csrf
         <label for="title">عنوان:</label>

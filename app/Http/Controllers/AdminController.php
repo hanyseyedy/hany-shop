@@ -9,8 +9,14 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin'); // اطمینان از اینکه فقط ادمین‌ها دسترسی دارند
+        $this->middleware(function ($request, $next) {
+            if (auth()->user()->role !== 'admin') {
+                return redirect('/');
+            }
+            return $next($request);
+        });
     }
+
 
     public function index()
     {

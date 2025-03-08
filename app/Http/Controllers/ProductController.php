@@ -72,10 +72,15 @@ class ProductController extends Controller
             'stock' => 'required|integer',
         ]);
 
-        $product->update($request->all());
+        $product->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+        ]);
 
         return redirect()->route('admin.products.index')->with('success', 'محصول با موفقیت ویرایش شد.');
     }
+
 
     /**
      * Remove the specified resource from storage.

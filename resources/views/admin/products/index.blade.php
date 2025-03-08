@@ -23,8 +23,13 @@
                 <td>{{ $product->price }} تومان</td>
                 <td>{{ $product->stock }}</td>
                 <td>
-                    <a href="#" class="btn btn-warning btn-sm">ویرایش</a>
-                    <a href="#" class="btn btn-danger btn-sm">حذف</a>
+                    <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-warning btn-sm">ویرایش</a>
+                    <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('آیا مطمئن هستید؟')">حذف</button>
+                    </form>
+                    
                 </td>
             </tr>
             @endforeach

@@ -34,11 +34,15 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required',
         ]);
-
-        Post::create($request->all());
-
-        return redirect()->route('admin.posts.index')->with('success', 'پست اضافه شد.');
+    
+        Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
+    
+        return redirect()->route('admin.posts.index')->with('success', 'پست جدید با موفقیت ایجاد شد.');
     }
+    
 
     /**
      * Display the specified resource.
@@ -66,11 +70,15 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required',
         ]);
-
-        $post->update($request->all());
-
-        return redirect()->route('admin.posts.index')->with('success', 'پست ویرایش شد.');
+    
+        $post->update([
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
+    
+        return redirect()->route('admin.posts.index')->with('success', 'پست با موفقیت ویرایش شد.');
     }
+    
 
     /**
      * Remove the specified resource from storage.

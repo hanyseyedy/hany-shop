@@ -28,30 +28,30 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $type, $id)
     {
-        //
         $request->validate([
             'content' => 'required|string|max:1000',
         ]);
-
+    
         $user = auth()->user();
-
+    
         if ($type === 'product') {
-            $commentable = Product::findOrFail($id);
+            $commentable = \App\Models\Product::findOrFail($id);
         } elseif ($type === 'post') {
-            $commentable = Post::findOrFail($id);
+            $commentable = \App\Models\Post::findOrFail($id);
         } else {
             return back()->with('error', 'نوع نامعتبر است.');
         }
-
+    
         $commentable->comments()->create([
             'user_id' => $user->id,
             'content' => $request->content,
         ]);
-
-        return back()->with('success', 'کامنت شما ثبت شد.');
+    
+        return back()->with('success', 'کامنت شما با موفقیت ثبت شد.');
     }
+    
 
     /**
      * Display the specified resource.

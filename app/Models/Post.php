@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,4 +15,9 @@ class Post extends Model
         'title',
         'content',
     ];
+
+    public function comments(): MorphMany
+    {
+        return $this->morphMany(\App\Models\Comment::class, 'commentable');
+    }
 }

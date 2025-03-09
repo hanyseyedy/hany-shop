@@ -8,12 +8,16 @@
     <hr>
     
     <h3>نظرات کاربران</h3>
-    @foreach($post->comments as $comment)
-        <div class="mb-3 p-2 border rounded">
-            <p><strong>{{ $comment->user->name }}:</strong> {{ $comment->content }}</p>
-        </div>
-    @endforeach
-
+    @if($post->comments && $post->comments->count() > 0)
+        @foreach($post->comments as $comment)
+            <div class="mb-3 p-2 border rounded">
+                <p><strong>{{ $comment->user->name }}:</strong> {{ $comment->content }}</p>
+            </div>
+        @endforeach
+    @else
+        <p>هنوز هیچ نظری ثبت نشده است.</p>
+    @endif
+    
     @auth
     <form action="{{ route('comments.store', ['type' => 'post', 'id' => $post->id]) }}" method="POST">
         @csrf

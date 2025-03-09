@@ -29,6 +29,20 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'description' => 'required',
+    //         'price' => 'required|numeric',
+    //         'stock' => 'required|integer',
+    //     ]);
+
+    //     Product::create($request->all());
+
+    //     return redirect()->route('admin.products.index')->with('success', 'محصول با موفقیت اضافه شد.');
+    // }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -36,12 +50,21 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        Product::create($request->all());
+        $product = Product::create($request->only(['name', 'price', 'stock']));
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('products', 'public');
+                $product->images()->create(['image_path' => $path]);
+            }
+        }
 
         return redirect()->route('admin.products.index')->with('success', 'محصول با موفقیت اضافه شد.');
     }
+
 
     /**
      * Display the specified resource.
@@ -68,14 +91,18 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $product->update([
             'name' => $request->name,
+            'description' => $request->description,
             'price' => $request->price,
             'stock' => $request->stock,
+            'images' => $request->images,
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'محصول با موفقیت ویرایش شد.');

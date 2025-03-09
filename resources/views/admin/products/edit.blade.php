@@ -3,22 +3,30 @@
 @section('content')
 <div class="container">
     <h1>ویرایش محصول</h1>
-    <form action="{{ route('admin.products.update', $product) }}" method="POST">
+    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
+        
         <div class="mb-3">
-            <label class="form-label">نام محصول</label>
-            <input type="text" name="name" class="form-control" value="{{ $product->name }}" required>
+            <label for="name">نام محصول:</label>
+            <input type="text" name="name" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">قیمت</label>
-            <input type="number" name="price" class="form-control" value="{{ $product->price }}" required>
+            <label for="description">توضیحات:</label>
+            <textarea name="description"></textarea>
         </div>
         <div class="mb-3">
-            <label class="form-label">موجودی</label>
-            <input type="number" name="stock" class="form-control" value="{{ $product->stock }}" required>
+            <label for="price">قیمت:</label>
+            <input type="number" name="price" required>
         </div>
-        <button type="submit" class="btn btn-success">ویرایش</button>
+        <div class="mb-3">
+            <label for="stock">موجودی:</label>
+            <input type="number" name="stock" required>
+        </div>
+        <div class="mb-3">
+            <label for="images">تصاویر محصول:</label>
+            <input type="file" name="images[]" multiple>
+        </div>
+        <button type="submit">ویرایش محصول</button>
     </form>
 </div>
 @endsection

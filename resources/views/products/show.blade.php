@@ -3,6 +3,10 @@
 @section('content')
 <div class="container">
     <h1>{{ $product->name }}</h1>
+    @foreach($product->images as $image)
+        <img src="{{ asset('storage/' . $image->image_path) }}" alt="تصویر محصول" width="150">
+    @endforeach
+
     <p>قیمت: {{ number_format($product->price) }} تومان</p>
     <p>موجودی: {{ $product->stock }}</p>
     <p>{{ $product->description }}</p>

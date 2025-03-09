@@ -23,4 +23,10 @@ class Product extends Model
         return $this->morphMany(\App\Models\Comment::class, 'commentable');
     }
 
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
+
 }

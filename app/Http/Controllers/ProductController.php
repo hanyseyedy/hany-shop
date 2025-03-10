@@ -47,23 +47,28 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required',
+            'description' => 'nullable|string',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
-
-        $product = Product::create($request->only(['name', 'price', 'stock']));
-
+    
+        $product = Product::create([
+            'name' => $request->name,
+            'description' => $request->description ?? '',
+            'price' => $request->price,
+            'stock' => $request->stock,
+        ]);
+    
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('products', 'public');
                 $product->images()->create(['image_path' => $path]);
             }
         }
-
+    
         return redirect()->route('admin.products.index')->with('success', 'محصول با موفقیت اضافه شد.');
-    }
+    }    
 
 
     /**

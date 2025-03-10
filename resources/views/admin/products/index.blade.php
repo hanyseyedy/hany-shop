@@ -10,6 +10,7 @@
             <tr>
                 <th>#</th>
                 <th>نام محصول</th>
+                <th>توضیحات</th>
                 <th>قیمت</th>
                 <th>موجودی</th>
                 <th>عملیات</th>
@@ -20,6 +21,7 @@
             <tr>
                 <td>{{ $product->id }}</td>
                 <td>{{ $product->name }}</td>
+                <td>{{ $product->description }}</td>
                 <td>{{ $product->price }} تومان</td>
                 <td>{{ $product->stock }}</td>
                 <td>
